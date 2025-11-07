@@ -160,7 +160,7 @@ function createFaviconSprite (icon, siteConfig, theme = null) {
   return updatedSvgString
 }
 
-async function demoSetupComplete () {
+async function waitForDemoSetup () {
   const isDemoMode = !document
     .querySelector('#demo-badge')
     .classList.contains('display-none')
@@ -198,7 +198,7 @@ function buildPackVariant ({ name, version, style } = {}) {
 async function populateDrawerIcons () {
   fpLogger.debug('populateDrawerIcons()')
 
-  await demoSetupComplete()
+  await waitForDemoSetup()
 
   const icons = await window.extensionStore.getIcons()
   fpLogger.debug('icons', icons)
@@ -1146,7 +1146,7 @@ async function populateTableRow (siteConfig, insertion, tablePosition = 'last') 
   let icon
 
   if (siteConfig.iconId) {
-    await demoSetupComplete()
+    await waitForDemoSetup()
 
     console.log('Fetching icon by ID:', siteConfig.iconId)
     icon = await window.extensionStore.getIconById(siteConfig.iconId)
@@ -2048,7 +2048,7 @@ function hideLoadingSpinner () {
 async function populateIconPackVariantSelector () {
   fpLogger.debug('populateIconPackVariantSelector()')
 
-  await demoSetupComplete()
+  await waitForDemoSetup()
 
   const iconPacksSelect =
     ICON_SELECTOR_DRAWER.querySelector('#icon-packs-select')
