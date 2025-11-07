@@ -48,6 +48,9 @@ async function getSiteConfigs () {
 async function replaceFavicon (siteConfigId) {
   fpLogger.debug('replaceFavicon()')
 
+  console.log(`replaceFavicon`);
+  console.dir(replaceFavicon, { depth: null });
+
   const siteConfig = await window.extensionStore.getSiteConfigById(siteConfigId)
 
   const darkThemeEnabled = await window.extensionStore.getPreference(
@@ -183,6 +186,10 @@ async function updateCurrentFavicon () {
         return false
       }
     })
+
+    fpLogger.debug('siteConfig', siteConfig)
+    console.log(`siteConfig`);
+    console.dir(siteConfig, { depth: null });
 
     if (siteConfig) replaceFavicon(siteConfig.id)
   } else {
