@@ -1128,14 +1128,19 @@ async function populateTableRow (siteConfig, insertion, tablePosition = 'last') 
       .querySelector('#demo-badge')
       .classList.contains('display-none')
     fpLogger.debug('isDemoMode', isDemoMode)
+    console.log('isDemoMode: ', isDemoMode);
+    console.log('window.demoSetupComplete: ', window.demoSetupComplete);
+
 
     if (isDemoMode && !window.demoSetupComplete) {
       fpLogger.info('Waiting for demo setup to complete...')
+      console.log('Waiting for demo setup to complete...');
       // Wait for demo ready event
       await new Promise(resolve => {
         document.addEventListener('demoReady', resolve, { once: true })
       })
     }
+    console.log('Fetching icon by ID:', siteConfig.iconId);
     icon = await window.extensionStore.getIconById(siteConfig.iconId)
 
     if (icon) {
