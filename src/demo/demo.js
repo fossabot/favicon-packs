@@ -342,6 +342,9 @@ document.addEventListener('DOMContentLoaded', async function () {
   const siteConfigRowSelector = '.siteConfig-row'
   const callback = async () => {
     const rows = document.querySelectorAll(siteConfigRowSelector)
+    console.log(`rows`);
+    console.dir(rows, { depth: null });
+
     const siteConfigMetadata = []
 
     for await (row of rows) {
@@ -354,6 +357,10 @@ document.addEventListener('DOMContentLoaded', async function () {
       })
     }
 
+    console.log(`siteConfigMetadata`);
+    console.dir(siteConfigMetadata, { depth: null });
+
+    console.log('357 demo.js')
     updateCurrentFavicon()
 
     siteConfigMetadata[0].row
