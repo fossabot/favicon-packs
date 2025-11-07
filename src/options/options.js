@@ -1147,6 +1147,10 @@ async function populateTableRow (siteConfig, insertion, tablePosition = 'last') 
 
     if (icon) {
       const svgSprite = buildSvgSprite(icon)
+      fpLogger.debug('svgSprite', svgSprite)
+
+      console.log(`svgSprite`);
+      console.dir(svgSprite, { depth: null });
 
       newRow
         .querySelector('#icon-value')
