@@ -93,6 +93,7 @@ async function initialize () {
         fpLogger.debug('siteConfig', siteConfig)
 
         if (!siteConfig) {
+          console.log(`96`)
           browser.tabs.sendMessage(sender.tab.id, {
             action: 'setFavicon',
             imgUrl: null
@@ -164,6 +165,9 @@ async function initialize () {
         }
 
         fpLogger.debug('imgUrl', imgUrl)
+        console.log(`168`)
+        console.log(`imgUrl`);
+        console.dir(imgUrl, { depth: null });
         browser.tabs.sendMessage(sender.tab.id, {
           action: 'setFavicon',
           imgUrl,

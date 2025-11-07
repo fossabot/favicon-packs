@@ -241,6 +241,9 @@ fpLogger.info('content.js loaded')
   browser.runtime.onMessage.addListener((request, _sender, _sendResponse) => {
     fpLogger.trace('request', request)
 
+    console.log(`request`);
+    console.dir(request, { depth: null });
+
     if (request.action === 'setFavicon') {
       fpLogger.debug('request.imgUrl', request.imgUrl)
 
