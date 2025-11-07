@@ -67,6 +67,8 @@ async function replaceFavicon (siteConfigId) {
 
   const colorScheme = getColorScheme()
   fpLogger.debug('colorScheme', colorScheme)
+  console.log(`colorScheme`);
+  console.dir(colorScheme, { depth: null });
 
   // Handle emoji URLs directly
   if (siteConfig.emojiUrl) {
@@ -92,6 +94,9 @@ async function replaceFavicon (siteConfigId) {
   }
   // Handle icon-based favicons with theme support
   else if (siteConfig.iconId) {
+    console.log(`siteConfig.iconId`);
+    console.dir(siteConfig.iconId, { depth: null });
+
     switch (colorScheme) {
       case 'dark':
         if (darkThemeEnabled && siteConfig.darkPngUrl) {
@@ -117,6 +122,8 @@ async function replaceFavicon (siteConfigId) {
   }
 
   fpLogger.debug('imgUrl', imgUrl)
+  console.log(`imgUrl`);
+  console.dir(imgUrl, { depth: null });
 
   // Only proceed if we have an image URL
   if (!imgUrl) {
