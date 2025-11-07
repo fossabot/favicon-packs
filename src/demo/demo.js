@@ -282,8 +282,6 @@ document.addEventListener('DOMContentLoaded', async function () {
     const idbDatabase = window.extensionStore.getDatabase()
     fpLogger.verbose('idbDatabase', idbDatabase)
 
-    // await window.importFromJson(idbDatabase, JSON.stringify(window.fpIcons))
-
     const iconPacks = window.extensionStore.getIconPacks()
     const defaultIconPack = iconPacks.find(pack => pack.name === 'Ionicons')
     fpLogger.debug('defaultIconPack', defaultIconPack)
@@ -383,4 +381,6 @@ document.addEventListener('DOMContentLoaded', async function () {
     })
   }
   waitForElement(siteConfigRowSelector, 2, callback, 100)
+
+  document.body.insertAdjacentHTML('beforeend', `<script src="src/options/options.js"></script>`)
 })
