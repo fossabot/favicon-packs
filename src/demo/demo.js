@@ -1,3 +1,6 @@
+// Add this at the top of the file
+window.demoSetupComplete = false
+
 const FAVICON_ID = 'favicon-packs-favicon'
 
 async function setSiteConfigsOrder (siteConfigs) {
@@ -312,17 +315,11 @@ document.addEventListener('DOMContentLoaded', async function () {
     document.querySelector(selector).setAttribute('disabled', true)
   })
 
-  fpLogger.info('Initial demo setup complete, loading options.js')
+  window.demoSetupComplete = true
 
-  const script = document.createElement('script')
-  script.src = 'src/options/options.js'
-  script.onload = () => {
-    fpLogger.info('options.js loaded successfully')
-  }
-  script.onerror = error => {
-    fpLogger.error('Failed to load options.js', error)
-  }
-  document.body.appendChild(script)
+  // Dispatch event to notify options.js
+  const demoReadyEvent = new CustomEvent('demoReady')
+  document.dispatchEvent(demoReadyEvent)
 
   const siteConfigRowSelector = '.siteConfig-row'
   const callback = async () => {
