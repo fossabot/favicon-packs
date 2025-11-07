@@ -94,6 +94,7 @@ async function replaceFavicon (siteConfigId) {
   }
   // Handle icon-based favicons with theme support
   else if (siteConfig.iconId) {
+    fpLogger.debug('siteConfig.iconId', siteConfig.iconId)
     console.log(`siteConfig.iconId`);
     console.dir(siteConfig.iconId, { depth: null });
 

@@ -247,6 +247,9 @@ fpLogger.info('content.js loaded')
     if (request.action === 'setFavicon') {
       fpLogger.debug('request.imgUrl', request.imgUrl)
 
+      console.log(`request.imgUrl`);
+      console.dir(request.imgUrl, { depth: null });
+
       // Return early if imgUrl is null
       if (!request.imgUrl) {
         fpLogger.info('No favicon URL provided, stopping favicon management')
@@ -309,6 +312,7 @@ fpLogger.info('content.js loaded')
 
     hasInitialized = true
 
+    fpLogger.debug('312 content.js')
     console.log('312 content.js')
     sendMessageWithRetry({
       action: 'replaceFavicon',

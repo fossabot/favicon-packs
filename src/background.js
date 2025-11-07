@@ -31,7 +31,7 @@ async function initialize () {
 
   browser.runtime.onMessage.addListener(
     async (request, sender, sendResponse) => {
-      fpLogger.trace('request', request)
+      fpLogger.debug('request', request)
       fpLogger.trace('sender', sender)
       fpLogger.trace('sendResponse', sendResponse)
 
@@ -97,6 +97,7 @@ async function initialize () {
 
         if (!siteConfig) {
           console.log(`96`)
+          fpLogger.debug('96')
           browser.tabs.sendMessage(sender.tab.id, {
             action: 'setFavicon',
             imgUrl: null
@@ -167,6 +168,7 @@ async function initialize () {
           }
         }
 
+        fpLogger.debug('168')
         fpLogger.debug('imgUrl', imgUrl)
         console.log(`168`)
         console.log(`imgUrl`);
