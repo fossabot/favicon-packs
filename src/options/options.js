@@ -1142,6 +1142,8 @@ async function populateTableRow (siteConfig, insertion, tablePosition = 'last') 
     }
     console.log('Fetching icon by ID:', siteConfig.iconId);
     icon = await window.extensionStore.getIconById(siteConfig.iconId)
+    console.log(`icon`);
+    console.dir(icon, { depth: null });
 
     if (icon) {
       const svgSprite = buildSvgSprite(icon)
