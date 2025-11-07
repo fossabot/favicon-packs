@@ -149,6 +149,8 @@ async function replaceFavicon (siteConfigId) {
 async function updateCurrentFavicon () {
   fpLogger.debug('updateCurrentFavicon()')
 
+  console.log(`updateCurrentFavicon`);
+
   const siteConfigs = await window.extensionStore.getActiveSiteConfigs()
   fpLogger.debug('siteConfigs', siteConfigs)
 
@@ -377,6 +379,7 @@ document.addEventListener('DOMContentLoaded', async function () {
 
     const updateCurrentFaviconAfterDelay = () => {
       fpLogger.debug('updateCurrentFaviconAfterDelay()')
+      console.log('updateCurrentFaviconAfterDelay()')
       setTimeout(updateCurrentFavicon, 500)
     }
 
