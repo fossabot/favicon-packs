@@ -165,12 +165,9 @@ async function waitForDemoSetup () {
     .querySelector('#demo-badge')
     .classList.contains('display-none')
   fpLogger.debug('isDemoMode', isDemoMode)
-  // console.log('isDemoMode: ', isDemoMode)
-  // console.log('window.demoSetupComplete: ', window.demoSetupComplete)
 
   if (isDemoMode && !window.demoSetupComplete) {
     fpLogger.info('Waiting for demo setup to complete...')
-    // console.log('Waiting for demo setup to complete...')
     // Wait for demo ready event
     await new Promise(resolve => {
       document.addEventListener('demoReady', resolve, { once: true })
@@ -1148,17 +1145,12 @@ async function populateTableRow (siteConfig, insertion, tablePosition = 'last') 
   if (siteConfig.iconId) {
     await waitForDemoSetup()
 
-    // console.log('Fetching icon by ID:', siteConfig.iconId)
     icon = await window.extensionStore.getIconById(siteConfig.iconId)
-    // console.log(`icon`)
-    // console.dir(icon, { depth: null })
+    fpLogger.verbose('icon', icon)
 
     if (icon) {
       const svgSprite = buildSvgSprite(icon)
-      fpLogger.debug('svgSprite', svgSprite)
-
-      // console.log(`svgSprite`)
-      // console.dir(svgSprite, { depth: null })
+      fpLogger.verbose('svgSprite', svgSprite)
 
       newRow
         .querySelector('#icon-value')

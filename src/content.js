@@ -241,14 +241,8 @@ fpLogger.info('content.js loaded')
   browser.runtime.onMessage.addListener((request, _sender, _sendResponse) => {
     fpLogger.trace('request', request)
 
-    console.log(`request`);
-    console.dir(request, { depth: null });
-
     if (request.action === 'setFavicon') {
       fpLogger.debug('request.imgUrl', request.imgUrl)
-
-      console.log(`request.imgUrl`);
-      console.dir(request.imgUrl, { depth: null });
 
       // Return early if imgUrl is null
       if (!request.imgUrl) {
@@ -309,11 +303,10 @@ fpLogger.info('content.js loaded')
       .matches
       ? 'dark'
       : 'light'
+    fpLogger.debug('colorScheme', colorScheme)
 
     hasInitialized = true
 
-    fpLogger.debug('312 content.js')
-    console.log('312 content.js')
     sendMessageWithRetry({
       action: 'replaceFavicon',
       colorScheme,

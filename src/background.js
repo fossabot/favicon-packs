@@ -31,12 +31,9 @@ async function initialize () {
 
   browser.runtime.onMessage.addListener(
     async (request, sender, sendResponse) => {
-      fpLogger.debug('request', request)
+      fpLogger.trace('request', request)
       fpLogger.trace('sender', sender)
       fpLogger.trace('sendResponse', sendResponse)
-
-      console.log(`request (background.js)`);
-      console.dir(request, { depth: null });
 
       if (request.action === 'replaceFavicon') {
         fpLogger.debug('replaceFavicon')
@@ -96,8 +93,6 @@ async function initialize () {
         fpLogger.debug('siteConfig', siteConfig)
 
         if (!siteConfig) {
-          console.log(`96`)
-          fpLogger.debug('96')
           browser.tabs.sendMessage(sender.tab.id, {
             action: 'setFavicon',
             imgUrl: null
@@ -168,11 +163,7 @@ async function initialize () {
           }
         }
 
-        fpLogger.debug('168')
         fpLogger.debug('imgUrl', imgUrl)
-        console.log(`168`)
-        console.log(`imgUrl`);
-        console.dir(imgUrl, { depth: null });
         browser.tabs.sendMessage(sender.tab.id, {
           action: 'setFavicon',
           imgUrl,

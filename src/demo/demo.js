@@ -48,9 +48,6 @@ async function getSiteConfigs () {
 async function replaceFavicon (siteConfigId) {
   fpLogger.debug('replaceFavicon()')
 
-  console.log(`replaceFavicon`);
-  console.dir(replaceFavicon, { depth: null });
-
   const siteConfig = await window.extensionStore.getSiteConfigById(siteConfigId)
 
   const darkThemeEnabled = await window.extensionStore.getPreference(
@@ -67,8 +64,6 @@ async function replaceFavicon (siteConfigId) {
 
   const colorScheme = getColorScheme()
   fpLogger.debug('colorScheme', colorScheme)
-  console.log(`colorScheme`);
-  console.dir(colorScheme, { depth: null });
 
   // Handle emoji URLs directly
   if (siteConfig.emojiUrl) {
@@ -95,8 +90,6 @@ async function replaceFavicon (siteConfigId) {
   // Handle icon-based favicons with theme support
   else if (siteConfig.iconId) {
     fpLogger.debug('siteConfig.iconId', siteConfig.iconId)
-    console.log(`siteConfig.iconId`);
-    console.dir(siteConfig.iconId, { depth: null });
 
     switch (colorScheme) {
       case 'dark':
@@ -123,8 +116,6 @@ async function replaceFavicon (siteConfigId) {
   }
 
   fpLogger.debug('imgUrl', imgUrl)
-  console.log(`imgUrl`);
-  console.dir(imgUrl, { depth: null });
 
   // Only proceed if we have an image URL
   if (!imgUrl) {
@@ -150,8 +141,6 @@ async function replaceFavicon (siteConfigId) {
 async function updateCurrentFavicon () {
   fpLogger.debug('updateCurrentFavicon()')
 
-  console.log(`updateCurrentFavicon`);
-
   const siteConfigs = await window.extensionStore.getActiveSiteConfigs()
   fpLogger.debug('siteConfigs', siteConfigs)
 
@@ -164,10 +153,10 @@ async function updateCurrentFavicon () {
     const sortedSiteConfigs = siteConfigsOrder
       .map(id => siteConfigs.find(siteConfig => siteConfig.id === id))
       .filter(Boolean)
-
-    fpLogger.debug('sortedSiteConfigs', sortedSiteConfigs)
+    fpLogger.verbose('sortedSiteConfigs', sortedSiteConfigs)
 
     const siteConfig = sortedSiteConfigs.find(localSiteConfig => {
+      fpLogger.verbose('localSiteConfig', localSiteConfig)
       if (!localSiteConfig.websitePattern) return false
       if (!localSiteConfig.iconId && !localSiteConfig.uploadId) return false
 
@@ -198,8 +187,6 @@ async function updateCurrentFavicon () {
     })
 
     fpLogger.debug('siteConfig', siteConfig)
-    console.log(`siteConfig`);
-    console.dir(siteConfig, { depth: null });
 
     if (siteConfig) replaceFavicon(siteConfig.id)
   } else {
@@ -336,14 +323,12 @@ document.addEventListener('DOMContentLoaded', async function () {
 
   // Dispatch event to notify options.js
   const demoReadyEvent = new CustomEvent('demoReady')
-  // console.log('Dispatching demoReady event')
   document.dispatchEvent(demoReadyEvent)
 
   const siteConfigRowSelector = '.siteConfig-row'
   const callback = async () => {
     const rows = document.querySelectorAll(siteConfigRowSelector)
-    console.log(`rows`);
-    console.dir(rows, { depth: null });
+    fpLogger.verbose('rows', rows)
 
     const siteConfigMetadata = []
 
@@ -357,10 +342,7 @@ document.addEventListener('DOMContentLoaded', async function () {
       })
     }
 
-    console.log(`siteConfigMetadata`);
-    console.dir(siteConfigMetadata, { depth: null });
-
-    console.log('357 demo.js')
+    fpLogger.verbose('siteConfigMetadata', siteConfigMetadata)
     updateCurrentFavicon()
 
     siteConfigMetadata[0].row
@@ -387,7 +369,6 @@ document.addEventListener('DOMContentLoaded', async function () {
 
     const updateCurrentFaviconAfterDelay = () => {
       fpLogger.debug('updateCurrentFaviconAfterDelay()')
-      console.log('updateCurrentFaviconAfterDelay()')
       setTimeout(updateCurrentFavicon, 500)
     }
 
