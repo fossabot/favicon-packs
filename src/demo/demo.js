@@ -62,18 +62,61 @@ async function replaceFavicon (siteConfigId) {
   const colorScheme = getColorScheme()
   fpLogger.debug('colorScheme', colorScheme)
 
-  switch (colorScheme) {
-    case null:
-      break
-    case 'dark':
-      if (darkThemeEnabled) imgUrl = siteConfig.darkPngUrl
-      break
-    default:
-      if (lightThemeEnabled) imgUrl = siteConfig.lightPngUrl
-      break
+  // Handle emoji URLs directly
+  if (siteConfig.emojiUrl) {
+    imgUrl = siteConfig.emojiUrl
+  }
+  // Handle uploaded images
+  else if (siteConfig.uploadId) {
+    const upload = await window.extensionStore.getUploadById(
+      siteConfig.uploadId
+    )
+    if (upload) {
+      imgUrl = upload.dataUri
+    }
+  }
+  // Handle URL imports
+  else if (siteConfig.urlImportId) {
+    const urlImport = await window.extensionStore.getUrlImportById(
+      siteConfig.urlImportId
+    )
+    if (urlImport) {
+      imgUrl = urlImport.dataUri
+    }
+  }
+  // Handle icon-based favicons with theme support
+  else if (siteConfig.iconId) {
+    switch (colorScheme) {
+      case 'dark':
+        if (darkThemeEnabled && siteConfig.darkPngUrl) {
+          imgUrl = siteConfig.darkPngUrl
+        } else if (lightThemeEnabled && siteConfig.lightPngUrl) {
+          imgUrl = siteConfig.lightPngUrl
+        } else if (siteConfig.anyPngUrl) {
+          imgUrl = siteConfig.anyPngUrl
+        }
+        break
+
+      case 'light':
+      default:
+        if (lightThemeEnabled && siteConfig.lightPngUrl) {
+          imgUrl = siteConfig.lightPngUrl
+        } else if (darkThemeEnabled && siteConfig.darkPngUrl) {
+          imgUrl = siteConfig.darkPngUrl
+        } else if (siteConfig.anyPngUrl) {
+          imgUrl = siteConfig.anyPngUrl
+        }
+        break
+    }
   }
 
   fpLogger.debug('imgUrl', imgUrl)
+
+  // Only proceed if we have an image URL
+  if (!imgUrl) {
+    fpLogger.debug('No image URL found, skipping favicon replacement')
+    return
+  }
 
   // Remove existing favicon if present
   const existingFavicon = document.getElementById(FAVICON_ID)
