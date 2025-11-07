@@ -312,7 +312,17 @@ document.addEventListener('DOMContentLoaded', async function () {
     document.querySelector(selector).setAttribute('disabled', true)
   })
 
-  document.body.insertAdjacentHTML('beforeend', `<script src="src/options/options.js"></script>`)
+  fpLogger.info('Initial demo setup complete, loading options.js')
+
+  const script = document.createElement('script')
+  script.src = 'src/options/options.js'
+  script.onload = () => {
+    fpLogger.info('options.js loaded successfully')
+  }
+  script.onerror = error => {
+    fpLogger.error('Failed to load options.js', error)
+  }
+  document.body.appendChild(script)
 
   const siteConfigRowSelector = '.siteConfig-row'
   const callback = async () => {
