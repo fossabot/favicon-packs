@@ -326,7 +326,7 @@ document.addEventListener('DOMContentLoaded', async function () {
 
   // Dispatch event to notify options.js
   const demoReadyEvent = new CustomEvent('demoReady')
-  console.log('Dispatching demoReady event')
+  // console.log('Dispatching demoReady event')
   document.dispatchEvent(demoReadyEvent)
 
   const siteConfigRowSelector = '.siteConfig-row'
