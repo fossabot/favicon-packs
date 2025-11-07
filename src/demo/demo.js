@@ -312,6 +312,8 @@ document.addEventListener('DOMContentLoaded', async function () {
     document.querySelector(selector).setAttribute('disabled', true)
   })
 
+  document.body.insertAdjacentHTML('beforeend', `<script src="src/options/options.js"></script>`)
+
   const siteConfigRowSelector = '.siteConfig-row'
   const callback = async () => {
     const rows = document.querySelectorAll(siteConfigRowSelector)
@@ -381,6 +383,4 @@ document.addEventListener('DOMContentLoaded', async function () {
     })
   }
   waitForElement(siteConfigRowSelector, 2, callback, 100)
-
-  document.body.insertAdjacentHTML('beforeend', `<script src="src/options/options.js"></script>`)
 })
