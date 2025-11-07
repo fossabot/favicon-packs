@@ -308,6 +308,8 @@ fpLogger.info('content.js loaded')
       : 'light'
 
     hasInitialized = true
+
+    console.log('312 content.js')
     sendMessageWithRetry({
       action: 'replaceFavicon',
       colorScheme,

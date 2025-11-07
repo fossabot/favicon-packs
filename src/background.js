@@ -35,6 +35,9 @@ async function initialize () {
       fpLogger.trace('sender', sender)
       fpLogger.trace('sendResponse', sendResponse)
 
+      console.log(`request (background.js)`);
+      console.dir(request, { depth: null });
+
       if (request.action === 'replaceFavicon') {
         fpLogger.debug('replaceFavicon')
 
