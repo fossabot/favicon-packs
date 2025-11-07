@@ -172,7 +172,7 @@ async function demoSetupComplete () {
     fpLogger.info('Waiting for demo setup to complete...')
     console.log('Waiting for demo setup to complete...')
     // Wait for demo ready event
-    return await new Promise(resolve => {
+    await new Promise(resolve => {
       document.addEventListener('demoReady', resolve, { once: true })
     })
   }
